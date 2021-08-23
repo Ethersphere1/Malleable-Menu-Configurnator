@@ -9,8 +9,10 @@ void main() {
 class Config extends StatelessWidget {
   const Config({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Configurnator',
