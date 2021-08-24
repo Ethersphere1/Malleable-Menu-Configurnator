@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:xml/xml.dart';
+
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,15 +33,56 @@ class ConfigStateful extends StatefulWidget {
 }
 
 class _ConfigStateful extends State<ConfigStateful> {
-  Future testWindowFunctions() async {
+  Future WindowSizeFunc() async {
     await DesktopWindow.setWindowSize(Size(400, 860));
   }
 
-  String dropdownValue = 'true';
+  void checkXML(){
+    try {
+      final file = new File('malleableconfig.xml');
+      final document = XmlDocument.parse(
+          file.readAsStringSync());
+    }
+    on FileSystemException {
+
+      final bookshelfXml = '''<?xml version="1.0" encoding="utf-8"?>
+<MalleableMenu>
+	<MenuConfig>
+		<HomeDirectory></HomeDirectory>
+	</MenuConfig>
+	<IconCreatingConfig>
+		<AppIconSize></AppIconSize>
+		<AppIconColumns></AppIconColumns>
+	</IconCreatingConfig>
+	<RunningMode>
+		<SingleMode></SingleMode>
+		<AutoFocus></AutoFocus>
+		<AutoFocusDelay></AutoFocusDelay>
+		<MenuFocus></MenuFocus>
+	</RunningMode>
+</MalleableMenu>''';
+      final document = XmlDocument.parse(bookshelfXml);
+
+
+      var filename = new File('malleableconfig.xml');
+      filename.writeAsString(bookshelfXml.toString());
+
+    }
+  }
+
+
+  final homeController = TextEditingController();
+  final appSizeController = TextEditingController();
+  final appIconsColumnsController = TextEditingController();
+  String singleModeValue = 'false';
+  String autoFocusValue = 'false';
+  final autoFocusDelayController = TextEditingController();
+  String menuFocusValue = 'false';
 
   @override
   Widget build(BuildContext context) {
-    testWindowFunctions();
+    WindowSizeFunc();
+    checkXML();
     return SingleChildScrollView(
       child: Center(
         child: Container(
@@ -71,39 +115,40 @@ class _ConfigStateful extends State<ConfigStateful> {
                   ),
                 ],
               ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Padding(
+              //         padding: EdgeInsets.only(bottom: _textFieldsPadding),
+              //         child: TextField(
+              //           decoration: InputDecoration(
+              //             focusedBorder: OutlineInputBorder(
+              //               borderSide: BorderSide(color: Colors.black),
+              //               borderRadius: BorderRadius.all(
+              //                 Radius.circular(_borderRadius),
+              //               ),
+              //             ),
+              //             border: OutlineInputBorder(
+              //               borderSide: BorderSide(color: Colors.black),
+              //               borderRadius: BorderRadius.all(
+              //                 Radius.circular(_borderRadius),
+              //               ),
+              //             ),
+              //             labelText: "Menu Directory",
+              //             hintText: "Input the path to menu application",
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Row(
                 children: [
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(bottom: _textFieldsPadding),
                       child: TextField(
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(_borderRadius),
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(_borderRadius),
-                            ),
-                          ),
-                          labelText: "Menu Directory",
-                          hintText: "Input the path to menu application",
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: _textFieldsPadding),
-                      child: TextField(
+                        controller: homeController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
@@ -145,6 +190,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                     child: Padding(
                       padding: EdgeInsets.only(bottom: _textFieldsPadding),
                       child: TextField(
+                        controller: appSizeController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
@@ -172,6 +218,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                     child: Padding(
                       padding: EdgeInsets.only(bottom: _textFieldsPadding),
                       child: TextField(
+                        controller: appIconsColumnsController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
@@ -224,7 +271,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0),
                             child: DropdownButton<String>(
-                              value: dropdownValue,
+                              value: singleModeValue,
                               elevation: 16,
                               style: const TextStyle(color: Colors.deepPurple),
                               underline: Container(
@@ -233,7 +280,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                               ),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
+                                  singleModeValue = newValue!;
                                 });
                               },
                               items: <String>[
@@ -270,7 +317,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0),
                             child: DropdownButton<String>(
-                              value: dropdownValue,
+                              value: autoFocusValue,
                               elevation: 16,
                               style: const TextStyle(color: Colors.deepPurple),
                               underline: Container(
@@ -279,7 +326,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                               ),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
+                                  autoFocusValue = newValue!;
                                 });
                               },
                               items: <String>[
@@ -343,7 +390,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0),
                             child: DropdownButton<String>(
-                              value: dropdownValue,
+                              value: menuFocusValue,
                               elevation: 16,
                               style: const TextStyle(color: Colors.deepPurple),
                               underline: Container(
@@ -352,7 +399,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                               ),
                               onChanged: (String? newValue) {
                                 setState(() {
-                                  dropdownValue = newValue!;
+                                  menuFocusValue = newValue!;
                                 });
                               },
                               items: <String>[
@@ -372,6 +419,110 @@ class _ConfigStateful extends State<ConfigStateful> {
                   ),
                 ],
               ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(_borderRadius),
+                child: ColoredBox(
+                  color: Colors.black,
+                  child: ListTile(
+                    onTap: () {
+                      // print("hi");
+                      try {
+
+                        final menuConfigXml = '''<?xml version="1.0" encoding="utf-8"?>
+<MalleableMenu>
+	<MenuConfig>
+		<HomeDirectory>${homeController.text}</HomeDirectory>
+	</MenuConfig>
+	<IconCreatingConfig>
+		<AppIconSize>${appSizeController.text}</AppIconSize>
+		<AppIconColumns>${appIconsColumnsController.text}</AppIconColumns>
+	</IconCreatingConfig>
+	<RunningMode>
+		<SingleMode>${singleModeValue}</SingleMode>
+		<AutoFocus>${autoFocusValue}</AutoFocus>
+		<AutoFocusDelay>${autoFocusDelayController.text}</AutoFocusDelay>
+		<MenuFocus>${menuFocusValue}</MenuFocus>
+	</RunningMode>
+</MalleableMenu>''';
+
+                        var filename = new File('malleableconfig.xml');
+                        filename.writeAsString(menuConfigXml.toString());
+
+                        // final file = new File('malleableconfig.xml');
+                        // final document = XmlDocument.parse(
+                        //     file.readAsStringSync());
+                      }
+                      on FileSystemException {
+                        print("not found");
+
+//                         final bookshelfXml = '''<?xml version="1.0" encoding="utf-8"?>
+// <MalleableMenu>
+// 	<MenuConfig>
+// 		<HomeDirectory>C:\Users\akshif\Documents\</HomeDirectory>
+// 	</MenuConfig>
+// 	<IconCreatingConfig>
+// 		<AppIconSize>256</AppIconSize>
+// 		<AppIconColumns>5</AppIconColumns>
+// 	</IconCreatingConfig>
+// 	<RunningMode>
+// 		<SingleMode>true</SingleMode>
+// 		<AutoFocus>true</AutoFocus>
+// 		<AutoFocusDelay>300</AutoFocusDelay>
+// 		<MenuFocus>true</MenuFocus>
+// 	</RunningMode>
+// </MalleableMenu>''';
+//                         final document = XmlDocument.parse(bookshelfXml);
+//
+//
+//                         var filename = new File('malleableconfig.xml');
+//                         filename.writeAsString(bookshelfXml.toString());
+
+
+                        // final document = XmlDocument.parse('bookshelf.xml');
+                        // document.toXmlString(pretty: true, indent: '\t');
+                        // document.toXmlString(pretty: true, indent: '\t');
+                      }
+                    },
+                    title: Text(
+                      'Generate',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Padding(
+              //         padding: EdgeInsets.only(bottom: 16.0),
+              //         child: ClipRRect(
+              //           borderRadius: BorderRadius.circular(_borderRadius),
+              //           child: ColoredBox(
+              //             color: Colors.black,
+              //             child: ListTile(
+              //               onTap: () {
+              //
+              //                 print("hi");
+              //               },
+              //               trailing: Icon(
+              //                 Icons.navigate_next,
+              //                 color: Colors.white,
+              //               ),
+              //               title: Text(
+              //                 'Next',
+              //                 style: TextStyle(
+              //                   color: Colors.white,
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
