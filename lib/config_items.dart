@@ -352,6 +352,7 @@ class _ConfigStateful extends State<ConfigStateful> {
                     child: Padding(
                       padding: EdgeInsets.only(bottom: _textFieldsPadding),
                       child: TextField(
+                        controller: autoFocusDelayController,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
