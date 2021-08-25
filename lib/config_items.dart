@@ -426,7 +426,6 @@ class _ConfigStateful extends State<ConfigStateful> {
                   color: Colors.black,
                   child: ListTile(
                     onTap: () {
-                      // print("hi");
                       try {
 
                         final menuConfigXml = '''<?xml version="1.0" encoding="utf-8"?>
@@ -448,40 +447,9 @@ class _ConfigStateful extends State<ConfigStateful> {
 
                         var filename = new File('malleableconfig.xml');
                         filename.writeAsString(menuConfigXml.toString());
-
-                        // final file = new File('malleableconfig.xml');
-                        // final document = XmlDocument.parse(
-                        //     file.readAsStringSync());
                       }
                       on FileSystemException {
                         print("not found");
-
-//                         final bookshelfXml = '''<?xml version="1.0" encoding="utf-8"?>
-// <MalleableMenu>
-// 	<MenuConfig>
-// 		<HomeDirectory>C:\Users\akshif\Documents\</HomeDirectory>
-// 	</MenuConfig>
-// 	<IconCreatingConfig>
-// 		<AppIconSize>256</AppIconSize>
-// 		<AppIconColumns>5</AppIconColumns>
-// 	</IconCreatingConfig>
-// 	<RunningMode>
-// 		<SingleMode>true</SingleMode>
-// 		<AutoFocus>true</AutoFocus>
-// 		<AutoFocusDelay>300</AutoFocusDelay>
-// 		<MenuFocus>true</MenuFocus>
-// 	</RunningMode>
-// </MalleableMenu>''';
-//                         final document = XmlDocument.parse(bookshelfXml);
-//
-//
-//                         var filename = new File('malleableconfig.xml');
-//                         filename.writeAsString(bookshelfXml.toString());
-
-
-                        // final document = XmlDocument.parse('bookshelf.xml');
-                        // document.toXmlString(pretty: true, indent: '\t');
-                        // document.toXmlString(pretty: true, indent: '\t');
                       }
                     },
                     title: Text(
@@ -493,37 +461,6 @@ class _ConfigStateful extends State<ConfigStateful> {
                   ),
                 ),
               )
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Padding(
-              //         padding: EdgeInsets.only(bottom: 16.0),
-              //         child: ClipRRect(
-              //           borderRadius: BorderRadius.circular(_borderRadius),
-              //           child: ColoredBox(
-              //             color: Colors.black,
-              //             child: ListTile(
-              //               onTap: () {
-              //
-              //                 print("hi");
-              //               },
-              //               trailing: Icon(
-              //                 Icons.navigate_next,
-              //                 color: Colors.white,
-              //               ),
-              //               title: Text(
-              //                 'Next',
-              //                 style: TextStyle(
-              //                   color: Colors.white,
-              //                 ),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),
