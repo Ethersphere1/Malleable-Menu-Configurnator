@@ -20,7 +20,7 @@ namespace Configurnator.ViewModels
 
         public string AppIconSize
         {
-            get => homeDirectory;
+            get => appIconSize;
             set => this.RaiseAndSetIfChanged(ref appIconSize, value);
         }
 
@@ -105,7 +105,6 @@ namespace Configurnator.ViewModels
                 MenuSelfFocusRepetitions = menuItems["menuSelfFocusRepetitions"];
                 MenuSelfFocusInfinite = menuItems["menuSelfFocusInfinite"];
                 MenuSelfFocusDelay = menuItems["menuSelfFocusDelay"];
-
             }
 
             // HomeDirectory = "this";
@@ -126,27 +125,9 @@ namespace Configurnator.ViewModels
                     { "menuSelfFocusDelay", MenuSelfFocusDelay },
                 };
 
-                //string json = JsonConvert.SerializeObject(menuItems["homeDirectory"]);
-
-                //Console.WriteLine(json);
-
-                System.Diagnostics.Debug.WriteLine("************dfdfd*************");
-                System.Diagnostics.Debug.WriteLine(menuItems);
-
+                // writing the content to config file
                 File.WriteAllText(@"malleableconfig.json", JsonConvert.SerializeObject(menuItems));
             });
-
-            if (!File.Exists("homeDirPat.txt"))
-            {
-                StreamWriter streamWriter = new StreamWriter(@"homeDirPat.txt");
-                streamWriter.Close();
-            }
-            else if (File.Exists("homeDirPat.txt"))
-            {
-                // string line1 = File.ReadLines("homeDirPat.txt").First();
-                System.Diagnostics.Debug.WriteLine("*************************");
-                System.Diagnostics.Debug.WriteLine("EmptyFile");
-            }
         } // constructor
 
         public ICommand OnClickCommand { get; }
