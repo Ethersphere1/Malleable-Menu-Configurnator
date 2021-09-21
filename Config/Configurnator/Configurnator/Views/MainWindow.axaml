@@ -14,7 +14,25 @@
 
     
   <StackPanel>
-    <TextBox Text="{Binding HomeDirectory}" Margin="10"/>
+    <TextBox Text="{Binding HomeDirectory}"     Watermark="Home directory path..." Margin="10"/>
+    <TextBox Text="{Binding AppIconSize}"       Watermark="App icon size..." Margin="10"/>
+    <TextBox Text="{Binding AppIconColumns}"    Watermark="App icon columns..." Margin="10"/>
+    
+    <!--<ComboBox x:Name="singleModeComboBox" SelectedIndex="0" Margin="10">
+      <ComboBoxItem>false</ComboBoxItem>
+      <ComboBoxItem>true</ComboBoxItem>
+    </ComboBox>-->
+    
+    <TextBox Text="{Binding SingleMode}" Watermark="Single mode..." Margin="10"/>
+    <TextBox Text="{Binding AppAutoFocus}" Watermark="App auto focus..." Margin="10"/>
+    <TextBox Text="{Binding AppAutoFocusDelay}" Watermark="App auto focus delay..." Margin="10"/>
+    <TextBox Text="{Binding MenuSelfFocus}" Watermark="Menu Self Focus..." Margin="10"/>
+    <TextBox Text="{Binding MenuSelfFocusRepetitions}" Watermark="Menu self focus repetitions..." Margin="10"/>
+    <TextBox Text="{Binding MenuSelfFocusInfinite}" Watermark="Menu self focus infinite..." Margin="10"/>
+    <TextBox Text="{Binding MenuSelfFocusDelay}" Watermark="Menu self focus delay..." Margin="10"/>
+    
+    
+    <Button Command="{Binding OnClickCommand}" Width="160" Margin="10">Generate</Button>
   </StackPanel>
 
 </Window>
